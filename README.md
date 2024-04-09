@@ -1,40 +1,6 @@
 # Coin Flip Contract
 
-The smart contract implements a flip coin game in which the player tries to guess the next outcome.
-The player gets a point on each correct guess, and losses one for each wrong one.
-
-```ts
-function simulateCoinFlip(): Side {
-  const randomString: string = near.randomSeed();
-  return randomString.charCodeAt(0) % 2 ? 'heads' : 'tails';
-}
-
-flip_coin({ player_guess }: { player_guess: Side  }): Side {
-  // Check who called the method
-  const player = near.predecessorAccountId(); 
-  near.log(`${player} chose ${player_guess}`);
-
-  // Simulate a Coin Flip
-  const outcome = simulateCoinFlip();
-
-  // Get the current player points
-  let player_points: number = (this.points.get(player) || 0) as number
-  
-  // Check if their guess was right and modify the points accordingly
-  if(player_guess == outcome) {
-    near.log(`The result was ${outcome}, you get a point!`);
-    player_points += 1;
-  } else {
-    near.log(`The result was ${outcome}, you lost a point`);
-    player_points = player_points? player_points - 1 : 0;
-  }
-
-  // Store the new points
-  this.points.set(player, player_points)
-
-  return outcome
-}
-```
+The CoinFlip smart contract on the NEAR Protocol enables users to participate in a straightforward coin flipping game. Players can call the flip_coin function to make their guess on whether the outcome of a coin flip will be "heads" or "tails". The contract then simulates the coin flip and compares the player's guess with the actual outcome. If the guess is correct, the player earns a point; otherwise, they lose a point. Each player's points are tracked using an UnorderedMap, allowing them to accumulate points over multiple rounds. Additionally, the contract provides a points_of function, allowing anyone to view the total points of a specific player by providing their account ID. This simple yet interactive contract showcases the fundamental features of NEAR smart contracts, including state management and interaction with user accounts.
 
 <br />
 
