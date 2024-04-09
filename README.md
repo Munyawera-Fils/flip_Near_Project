@@ -63,8 +63,4 @@ near login
 
 and then use the logged account to sign the transaction: `--accountId <another-account>`.
 
-## A Note on Random Numbers
-Generating random numbers in an adversarial environment such as a blockchain is very difficult. This spawns from
-the fact that everything is public on the network.
 
-Please check our documentation to learn more about handling [random numbers in a blockchain](https://docs.near.org/develop/contracts/security/storage).
