@@ -1,11 +1,13 @@
 import { near, call, view, UnorderedMap, bindgen } from 'near-sdk-js';
-import { generateSecureRandom } from 'secure-random'; // Assuming you have a secure random number generator library
 
 type Side = 'heads' | 'tails';
 
 function simulateCoinFlip(): Side {
-    // Generate a secure random number between 0 and 1
-    const randomNumber = generateSecureRandom();
+    // Generate a random number using near.randomSeed() and additional entropy
+    const accountId = near.predecessorAccountId();
+    const timestamp = near.blockTimestamp();
+    const randomSeed = `${near.randomSeed()}${accountId}${timestamp}`;
+    const randomNumber = parseInt(randomSeed, 36) / Number.MAX_SAFE_INTEGER;
     return randomNumber < 0.5 ? 'heads' : 'tails';
 }
 
